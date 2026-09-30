@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth, useClerk } from "@clerk/react";
 import { useSignIn } from "@clerk/react/legacy";
+import { Button } from "@/components/ui/button";
 
 export default function AuthButton() {
   const { isLoaded, isSignedIn } = useAuth();
@@ -39,12 +40,12 @@ export default function AuthButton() {
   };
 
   return (
-    <button
+    <Button
       onClick={isSignedIn ? handleLogout : handleLogin}
       disabled={busy}
-      className="inline-flex h-10 items-center gap-2 rounded-lg bg-black px-4 text-sm font-medium text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60"
+      className="inline-flex h-10 items-center gap-2 rounded-lg bg-black px-4 text-sm font-medium text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
     >
       {busy ? "Please wait..." : isSignedIn ? "Logout" : "Login with Google"}
-    </button>
+    </Button>
   );
 }
