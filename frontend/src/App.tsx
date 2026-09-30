@@ -4,6 +4,7 @@ import SSOCallback from "./pages/SSOCallback";
 import OrganizationSignIn from "./pages/organization/SignIn";
 import OrganizationSignUpFounder from "./pages/organization/Founder/SignUp";
 import OrganizationSignUpFounderContact from "./pages/organization/Founder/SignUpContact";
+import OrganizationSignUpFounderSecurity from "./pages/organization/Founder/SignUpSecurity";
 
 const App = () => {
   return (
@@ -20,6 +21,10 @@ const App = () => {
         <Route
           path="/organization/signup/founder/contact"
           element={<OrganizationSignUpFounderContact />}
+        />
+        <Route
+          path="/organization/signup/founder/security"
+          element={<OrganizationSignUpFounderSecurity />}
         />
       </Routes>
     </BrowserRouter>
