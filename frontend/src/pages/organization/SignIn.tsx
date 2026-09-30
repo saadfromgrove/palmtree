@@ -43,7 +43,7 @@ const OrganizationSignIn = () => {
             Don&apos;t have an organization account?
             <br />
             <span
-              onClick={() => router("/organization/signup/founder/personal")}
+              onClick={() => router("/organization/signup/founder")}
               className="font-medium text-blue-800 cursor-pointer"
             >
               Create an organization account
