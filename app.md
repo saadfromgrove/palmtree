@@ -1,0 +1,2 @@
+_Frontend Env:_
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_cmVuZXdlZC1mbGFtaW5nby02NTQxLmNsZXJrLmFjY291bnRzLmRldiQ

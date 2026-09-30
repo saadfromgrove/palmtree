@@ -1,14 +1,12 @@
-import { Show, SignInButton, SignOutButton } from "@clerk/react";
+import AuthButton from "../lib/signin";
+import { SignOutButton, useUser } from "@clerk/react";
 
 const App = () => {
+  const { user } = useUser();
+
   return (
     <div>
-      <Show when={"signed-out"}>
-        <SignInButton>Login</SignInButton>
-      </Show>
-      <Show when={"signed-in"}>
-        <SignOutButton>Logout</SignOutButton>
-      </Show>
+      <AuthButton />
     </div>
   );
 };
