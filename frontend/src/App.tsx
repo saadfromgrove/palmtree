@@ -1,13 +1,16 @@
-import AuthButton from "../lib/signin";
-import { SignOutButton, useUser } from "@clerk/react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import SSOCallback from "./pages/SSOCallback";
 
 const App = () => {
-  const { user } = useUser();
-
   return (
-    <div>
-      <AuthButton />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/sso-callback" element={<SSOCallback />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
