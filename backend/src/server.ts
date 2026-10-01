@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
-import env from "./config/env.config";
 import dns from "dns";
 
+import env from "./config/env.config";
 import { connectToDB } from "./config/db.config";
 
 const app = express();
