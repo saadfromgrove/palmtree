@@ -30,7 +30,7 @@ const OrganizationSignUpReview = () => {
           </h6>
         </div>
 
-        <div className="flex justify-start items-start w-full flex-col lg:gap-y-4 mb-28">
+        <div className="flex justify-start items-start w-full flex-col lg:gap-y-0 mb-28">
           <div className="flex justify-start items-start w-full lg:gap-x-20">
             <div className="flex justify-start items-start w-70 flex-col lg:gap-y-2">
               <Label>Name</Label>
@@ -51,7 +51,7 @@ const OrganizationSignUpReview = () => {
               />
             </div>
           </div>
-          <div className="flex justify-start items-start w-full lg:gap-x-20 my-10">
+          <div className="flex justify-start items-start w-full lg:gap-x-20 mt-10">
             <div className="flex justify-start items-start w-70 flex-col lg:gap-y-2">
               <Label>Contact Number</Label>
               <Input
@@ -69,7 +69,7 @@ const OrganizationSignUpReview = () => {
               />
             </div>
           </div>
-          <div className="flex justify-start items-start w-70 flex-col lg:gap-y-2 mt-4">
+          <div className="flex justify-start items-start w-70 flex-col lg:gap-y-2 mt-10">
             <Label>Role</Label>
             <Input
               autoComplete="off"
@@ -79,9 +79,9 @@ const OrganizationSignUpReview = () => {
             />
           </div>
 
-          <div className="flex justify-start items-center w-full lg:gap-x-52">
+          <div className="flex justify-start items-center w-full lg:gap-x-52 mt-14">
             <h6 className="text-sm text-neutral-600/80 flex items-center gap-x-2">
-              <Info size={14} /> Please login if founder account already exists
+              <Info size={14} /> Please review before registering your account
             </h6>
             <Button
               onClick={() => router("/organization/signup/founder/contact")}
