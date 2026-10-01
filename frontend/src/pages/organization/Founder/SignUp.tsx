@@ -12,8 +12,10 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const OrganizationSignUpFounder = () => {
+  const router = useNavigate();
   const { user } = useUser();
 
   return (
@@ -63,7 +65,11 @@ const OrganizationSignUpFounder = () => {
             <h6 className="text-sm text-neutral-600/80 flex items-center gap-x-2">
               <Info size={14} /> Please login if founder account already exists
             </h6>
-            <Button size={"lg"} className="bg-blue-700 hover:bg-blue-800">
+            <Button
+              onClick={() => router("/organization/signup/founder/contact")}
+              size={"lg"}
+              className="bg-blue-700 hover:bg-blue-800 cursor-pointer"
+            >
               Continue
             </Button>
           </div>
