@@ -1,8 +1,9 @@
 import express from "express";
 import cors from "cors";
+import env from "./config/env.config";
 
 const app = express();
-const PORT = 8000;
+const PORT = env.PORT;
 
 app.use(
   cors({
