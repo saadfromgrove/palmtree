@@ -6,12 +6,27 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-// import { toast } from "@/components/ui/toast";
+
+import { useSignIn } from "@clerk/react/legacy";
 import { Building2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const OrganizationSignIn = () => {
+  const { signIn } = useSignIn();
   const router = useNavigate();
+
+  const handleGoogleSignUp = async () => {
+    try {
+      await signIn?.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: "/sso-callback",
+        redirectUrlComplete: "/organization/signup/founder",
+      });
+    } catch (error: any) {
+      console.log(error.message);
+      router("/organization/signin");
+    }
+  };
 
   return (
     <div className="flex justify-center items-center w-full min-h-screen p-4">
@@ -35,15 +50,16 @@ const OrganizationSignIn = () => {
             Login To Organization
           </Button>
         </CardContent>
-        <div className="flex justify-center items-center w-full lg:px-8">
-          <Separator className="w-full" />
-        </div>
-        <CardFooter className="flex justify-center items-center w-full text-center py-6">
+
+        <CardFooter className="flex justify-center items-center w-full text-center py-6 flex-col">
+          <div className="flex justify-center items-center w-full  mb-4">
+            <Separator className="w-full" />
+          </div>
           <p className="text-sm text-neutral-600">
             Don&apos;t have an organization account?
             <br />
             <span
-              onClick={() => router("/organization/signup/founder")}
+              onClick={handleGoogleSignUp}
               className="font-medium text-blue-800 cursor-pointer"
             >
               Create an organization account

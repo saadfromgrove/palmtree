@@ -5,6 +5,7 @@ import OrganizationSignIn from "./pages/organization/SignIn";
 import OrganizationSignUpFounder from "./pages/organization/Founder/SignUp";
 import OrganizationSignUpFounderContact from "./pages/organization/Founder/SignUpContact";
 import OrganizationSignUpFounderSecurity from "./pages/organization/Founder/SignUpSecurity";
+import OrganizationSignUpFounderReview from "./pages/organization/Founder/SignUpReview";
 
 const App = () => {
   return (
@@ -25,6 +26,10 @@ const App = () => {
         <Route
           path="/organization/signup/founder/security"
           element={<OrganizationSignUpFounderSecurity />}
+        />
+        <Route
+          path="/organization/signup/founder/review"
+          element={<OrganizationSignUpFounderReview />}
         />
       </Routes>
     </BrowserRouter>
