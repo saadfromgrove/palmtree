@@ -12,6 +12,9 @@ userRouter.post(
   "/founder/signup",
   controllers.registerFounderAccountController,
 );
+
+userRouter.put("/update", controllers.updateVerifiedUserAccountController);
+
 userRouter.delete("/delete", controllers.deleteUnverifiedUserAccountController);
 
 export default userRouter;
