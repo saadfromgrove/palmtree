@@ -1,4 +1,9 @@
-import mongoose, { Model } from "mongoose";
+import mongoose from "mongoose";
+
+export enum UserType {
+  ORG_FOUNDER = "ORG_FOUNDER",
+  SERV_FOUNDER = "SERV_FOUNDER",
+}
 
 const userSchema = new mongoose.Schema(
   {
@@ -27,6 +32,7 @@ const userSchema = new mongoose.Schema(
     },
     userType: {
       type: String,
+      enum: Object.values(UserType),
       required: true,
     },
     status: {
@@ -42,6 +48,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
       unique: true,
+      sparse: true, // To allow more than 1 users to register without entering pan card number
     },
   },
   { timestamps: true },
