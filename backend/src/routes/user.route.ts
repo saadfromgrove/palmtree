@@ -1,3 +1,5 @@
+/* backend\src\routes\user.route.ts */
+
 // Import Router class from express
 import { Router } from "express";
 
