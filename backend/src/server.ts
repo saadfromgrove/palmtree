@@ -4,11 +4,12 @@
 import express from "express";
 import cors from "cors";
 import dns from "dns";
+import { clerkMiddleware } from "@clerk/express";
 
 // Import custom fields and functions
 import env from "./config/env.config";
+import mainRouter from "./middlewares/route.middleware";
 import { connectToDB } from "./config/db.config";
-import { clerkMiddleware } from "@clerk/express";
 
 const PORT = env.PORT;
 const app = express();
@@ -24,6 +25,7 @@ app.use(
   }),
 );
 app.use(clerkMiddleware());
+app.use("/api", mainRouter);
 
 // Server function
 const server = async () => {
