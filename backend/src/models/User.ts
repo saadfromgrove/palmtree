@@ -48,6 +48,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
       unique: true,
+      sparse: true, // To allow more than 1 users to register without entering pan card number
     },
   },
   { timestamps: true },

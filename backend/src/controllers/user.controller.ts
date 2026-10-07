@@ -41,7 +41,7 @@ export const registerFounderAccountController = async (
 
     res.status(201).json({
       success: true,
-      message: `Dear ${founder.name} a warm welcome you to the PalmTree family.`,
+      message: `Dear ${founder.name} a warm welcome to the PalmTree family.`,
       founder,
     });
   } catch (error: any) {
