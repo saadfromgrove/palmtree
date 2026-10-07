@@ -1,6 +1,7 @@
 /* backend\src\services\user.service.ts */
 
 // Import model to interact with fields and classes from mongo database
+import { clerkClient } from "@clerk/express";
 import User, { UserType } from "../models/User";
 
 // Service to sync clerk user (founder) to mongo database
@@ -60,4 +61,23 @@ export const registerFounderAccount = async (
   });
 
   return founder;
+};
+
+// Service to delete unverified user from mongo database as well as clerk
+export const deleteUnverifiedUserAccount = async (clerkId: string) => {
+  // Check existence of the user account
+  const existingUser = await User.findOne({ clerkId });
+  if (!existingUser) throw new Error("User account doesn't exist in database"); // Throw appropriate error
+
+  // If user is verified, do not delete the account
+  if (existingUser.status === true)
+    throw new Error(
+      "Your account is verified and cannot be deleted. Please contact PalmTree support to delete your account.",
+    );
+
+  // Delete the account from the mongo database
+  await User.deleteOne({ clerkId });
+
+  // Delete the account from the clerk
+  await clerkClient.users.deleteUser(clerkId);
 };
