@@ -63,27 +63,28 @@ export const deleteUnverifiedUserAccountController = async (
   res: Response,
 ) => {
   // Only for backend development testing
+  /*
   const { clerkId } = req.body;
   if (!clerkId) {
     return res.status(403).json({
       error: "Unauthorized: Please login before deleting the account.",
     });
   }
+  */
 
-  // For actual production
-  /*
+  // For actual production purpose
   const { userId } = getAuth(req);
   if (!userId) {
     return res.status(403).json({
       error: "Unauthorized: Please login before deleting the account.",
     });
   }
- */
 
   try {
-    await userServices.deleteUnverifiedUserAccount(clerkId);
-    res.status(204).json({
-      message: "Your account was permanently deleted from the PalmTree.",
+    const message = await userServices.deleteUnverifiedUserAccount(userId);
+    res.status(200).json({
+      success: true,
+      message,
     });
   } catch (error: any) {
     return res.status(500).json({ success: false, error: error.message });

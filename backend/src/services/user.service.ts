@@ -72,7 +72,7 @@ export const deleteUnverifiedUserAccount = async (clerkId: string) => {
   // If user is verified, do not delete the account
   if (existingUser.status === true)
     throw new Error(
-      "Your account is verified and cannot be deleted. Please contact PalmTree support to delete your account.",
+      "Your account is verified and cannot be deleted. Please contact PalmTree support team to delete your account.",
     );
 
   // Delete the account from the mongo database
@@ -80,4 +80,7 @@ export const deleteUnverifiedUserAccount = async (clerkId: string) => {
 
   // Delete the account from the clerk
   await clerkClient.users.deleteUser(clerkId);
+
+  const message = "Your account was permanently deleted from the PalmTree.";
+  return message;
 };
