@@ -115,7 +115,7 @@ export const updateVerifiedUserAccount = async (
     );
 
   // Find by clerk ID and save updated information to mongo database
-  const user = await User.findOneAndUpdate(
+  await User.findOneAndUpdate(
     { clerkId },
     {
       contact: `+91-${contact}`,
@@ -123,6 +123,4 @@ export const updateVerifiedUserAccount = async (
       profilePicture: profilePicture ? profilePicture : null, // If there is no profile picture then set it's value to null
     },
   );
-
-  return user;
 };
