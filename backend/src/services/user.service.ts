@@ -124,3 +124,19 @@ export const updateVerifiedUserAccount = async (
     },
   );
 };
+
+// Service to check if user exists in mongo database
+export const checkUserExistence = async (clerkId: string) => {
+  let accountExists;
+  accountExists = false;
+
+  // If user exists flag green (true)
+  const existingUser = await User.findOne({ clerkId });
+  if (existingUser) {
+    accountExists = true;
+    return accountExists;
+  }
+
+  // If user doesn't exists flag red (false)
+  return accountExists;
+};
