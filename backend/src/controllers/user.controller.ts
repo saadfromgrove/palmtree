@@ -66,7 +66,7 @@ export const deleteUnverifiedUserAccountController = async (
   /*
     const { clerkId } = req.body;
     if (!clerkId) {
-      return res.status(403).json({
+      return res.status(401).json({
         error: "Unauthorized: Please login before deleting the account.",
       });
     }
@@ -107,8 +107,8 @@ export const updateVerifiedUserAccountController = async (
   /*
     const { clerkId } = req.body;
     if (!clerkId) {
-      return res.status(403).json({
-        error: "Unauthorized: Please login before deleting the account.",
+      return res.status(401).json({
+        error: "Unauthorized: Please login before updating the account.",
       });
     }
   */
@@ -120,7 +120,7 @@ export const updateVerifiedUserAccountController = async (
     const { userId } = getAuth(req);
     if (!userId) {
       return res.status(401).json({
-        error: "Unauthorized: Please login before deleting the account.",
+        error: "Unauthorized: Please login before updating the account.",
       });
     }
 
@@ -152,25 +152,25 @@ export const checkUserExistenceController = async (
   res: Response,
 ) => {
   // Only for backend development testing
-  // /*
-  const { clerkId } = req.body;
-  if (!clerkId) {
-    return res.status(401).json({
-      error: "Unauthorized: Please login before fetching the account.",
-    });
-  }
-  // */
+  /*
+    const { clerkId } = req.body;
+    if (!clerkId) {
+      return res.status(401).json({
+        error: "Unauthorized: Please login before fetching the account.",
+      });
+    }
+  */
 
   try {
     // For actual production purpose
-    // const { userId } = getAuth(req);
-    // if (!userId) {
-    //   return res.status(401).json({
-    //     error: "Unauthorized: Please login before deleting the account.",
-    //   });
-    // }
+    const { userId } = getAuth(req);
+    if (!userId) {
+      return res.status(401).json({
+        error: "Unauthorized: Please login before fetching the account.",
+      });
+    }
 
-    const accountExists = await userServices.checkUserExistence(clerkId);
+    const accountExists = await userServices.checkUserExistence(userId);
     res.status(200).json({ success: true, accountExists });
   } catch (error: any) {
     return res.status(400).json({ success: false, error: error.message });
