@@ -1,5 +1,10 @@
 import mongoose, { Model } from "mongoose";
 
+enum UserType {
+  ORG_FOUNDER = "ORG_FOUNDER",
+  SERV_FOUNDER = "SERV_FOUNDER",
+}
+
 const userSchema = new mongoose.Schema(
   {
     clerkId: {
@@ -27,6 +32,7 @@ const userSchema = new mongoose.Schema(
     },
     userType: {
       type: String,
+      enum: Object.values(UserType),
       required: true,
     },
     status: {
