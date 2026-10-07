@@ -138,3 +138,41 @@ export const updateVerifiedUserAccountController = async (
     return res.status(500).json({ success: false, error: error.message });
   }
 };
+
+/*
+    Check if user account exist
+    
+    Method: GET
+    Endpoint: /api/user/existence
+    Header: Authorization
+    Authentication: Required
+*/
+export const checkUserExistenceController = async (
+  req: Request,
+  res: Response,
+) => {
+  // Only for backend development testing
+  // /*
+  const { clerkId } = req.body;
+  if (!clerkId) {
+    return res.status(401).json({
+      error: "Unauthorized: Please login before fetching the account.",
+    });
+  }
+  // */
+
+  try {
+    // For actual production purpose
+    // const { userId } = getAuth(req);
+    // if (!userId) {
+    //   return res.status(401).json({
+    //     error: "Unauthorized: Please login before deleting the account.",
+    //   });
+    // }
+
+    const accountExists = await userServices.checkUserExistence(clerkId);
+    res.status(200).json({ success: true, accountExists });
+  } catch (error: any) {
+    return res.status(400).json({ success: false, error: error.message });
+  }
+};
