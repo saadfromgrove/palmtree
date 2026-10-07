@@ -104,28 +104,28 @@ export const updateVerifiedUserAccountController = async (
   res: Response,
 ) => {
   // Only for backend development testing
-  const { clerkId } = req.body;
-  if (!clerkId) {
-    return res.status(403).json({
-      error: "Unauthorized: Please login before deleting the account.",
-    });
-  }
+  /*
+    const { clerkId } = req.body;
+    if (!clerkId) {
+      return res.status(403).json({
+        error: "Unauthorized: Please login before deleting the account.",
+      });
+    }
+  */
 
   const { contact, aadharCard, profilePicture } = req.body;
 
   try {
     // For actual production purpose
-    /*
-      const { userId } = getAuth(req);
-      if (!userId) {
-        return res.status(401).json({
-          error: "Unauthorized: Please login before deleting the account.",
-        });
-      }
-    */
+    const { userId } = getAuth(req);
+    if (!userId) {
+      return res.status(401).json({
+        error: "Unauthorized: Please login before deleting the account.",
+      });
+    }
 
     await userServices.updateVerifiedUserAccount(
-      clerkId,
+      userId,
       contact,
       aadharCard,
       profilePicture,
