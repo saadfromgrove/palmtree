@@ -12,5 +12,6 @@ userRouter.post(
   "/founder/signup",
   controllers.registerFounderAccountController,
 );
+userRouter.delete("/delete", controllers.deleteUnverifiedUserAccountController);
 
 export default userRouter;
