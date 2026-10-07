@@ -1,6 +1,7 @@
 /* backend\src\controllers\user.controller.ts */
 
 // Import all services as one object
+import { getAuth } from "@clerk/express";
 import * as userServices from "../services/user.service";
 
 // Import Request and Response classes from express
@@ -43,6 +44,46 @@ export const registerFounderAccountController = async (
       success: true,
       message: `Dear ${founder.name} a warm welcome to the PalmTree family.`,
       founder,
+    });
+  } catch (error: any) {
+    return res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+/*
+    Delete unverified user account from Mongo database as well as Clerk 
+    
+    Method: DELETE
+    Endpoint: /api/user/delete
+    Header: Authorization
+    Authentication: Required
+*/
+export const deleteUnverifiedUserAccountController = async (
+  req: Request,
+  res: Response,
+) => {
+  // Only for backend development testing
+  const { clerkId } = req.body;
+  if (!clerkId) {
+    return res.status(403).json({
+      error: "Unauthorized: Please login before deleting the account.",
+    });
+  }
+
+  // For actual production
+  /*
+  const { userId } = getAuth(req);
+  if (!userId) {
+    return res.status(403).json({
+      error: "Unauthorized: Please login before deleting the account.",
+    });
+  }
+ */
+
+  try {
+    await userServices.deleteUnverifiedUserAccount(clerkId);
+    res.status(204).json({
+      message: "Your account was permanently deleted from the PalmTree.",
     });
   } catch (error: any) {
     return res.status(500).json({ success: false, error: error.message });
