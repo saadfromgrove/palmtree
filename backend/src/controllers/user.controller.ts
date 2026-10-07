@@ -75,7 +75,7 @@ export const deleteUnverifiedUserAccountController = async (
   // For actual production purpose
   const { userId } = getAuth(req);
   if (!userId) {
-    return res.status(403).json({
+    return res.status(401).json({
       error: "Unauthorized: Please login before deleting the account.",
     });
   }

@@ -84,3 +84,45 @@ export const deleteUnverifiedUserAccount = async (clerkId: string) => {
   const message = "Your account was permanently deleted from the PalmTree.";
   return message;
 };
+
+// Service to update verified user and save to mongo database
+export const updateVerifiedUserAccount = async (
+  clerkId: string,
+  contact: number,
+  aadharCard: number,
+  profilePicture: string,
+) => {
+  // Check existence of the user account
+  const existingUser = await User.findOne({ clerkId });
+  if (!existingUser) throw new Error("User account doesn't exist in database"); // Throw appropriate error
+
+  // If user is verified, do not delete the account
+  if (existingUser.status === false)
+    throw new Error(
+      "Your account is unverified and cannot be updated. Please wait until your account is approved or contact PalmTree support team.",
+    );
+
+  // Validate contact number
+  if (contact.toString().length != 10)
+    throw new Error(
+      "Please enter a valid and appropriate 10 digit Indian contact number.",
+    );
+
+  // Validate aadhar number
+  if (aadharCard.toString().length !== 12)
+    throw new Error(
+      "Please enter a valid 12 digit verified Aadhar card number.",
+    );
+
+  // Find by clerk ID and save updated information to mongo database
+  const user = await User.findOneAndUpdate(
+    { clerkId },
+    {
+      contact: `+91-${contact}`,
+      aadharCard,
+      profilePicture: profilePicture ? profilePicture : null, // If there is no profile picture then set it's value to null
+    },
+  );
+
+  return user;
+};
