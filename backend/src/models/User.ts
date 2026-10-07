@@ -1,6 +1,6 @@
-import mongoose, { Model } from "mongoose";
+import mongoose from "mongoose";
 
-enum UserType {
+export enum UserType {
   ORG_FOUNDER = "ORG_FOUNDER",
   SERV_FOUNDER = "SERV_FOUNDER",
 }
