@@ -1,18 +1,18 @@
 import { create } from "zustand";
 
 interface FounderAccountSignUp {
-  contact: number | null;
-  aadharCard: number | null;
+  contact: string;
+  aadharCard: string;
 
-  setContact: (contact: number) => void;
-  setAadharCard: (aadharCard: number) => void;
+  setContact: (contact: string) => void;
+  setAadharCard: (aadharCard: string) => void;
 
   reset: () => void;
 }
 
 export const useFounderSignUp = create<FounderAccountSignUp>((set) => ({
-  contact: null,
-  aadharCard: null,
+  contact: "",
+  aadharCard: "",
 
   setContact: (contact) => {
     set({ contact });
@@ -23,6 +23,6 @@ export const useFounderSignUp = create<FounderAccountSignUp>((set) => ({
   },
 
   reset: () => {
-    set({ contact: null, aadharCard: null });
+    set({ contact: "", aadharCard: "" });
   },
 }));

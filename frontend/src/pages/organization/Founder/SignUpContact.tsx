@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useFounderSignUp } from "@/hooks/useFounderSignUp";
 import {
   ChartColumnStacked,
   Info,
@@ -14,6 +15,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const OrganizationSignUpFounderContact = () => {
+  const { contact, setContact } = useFounderSignUp();
   const router = useNavigate();
 
   return (
@@ -36,6 +38,9 @@ const OrganizationSignUpFounderContact = () => {
                 autoComplete="off"
                 className="w-full lg:py-5 bg-muted-foreground/10"
                 placeholder="+91-888888000"
+                maxLength={10}
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
               />
             </div>
           </div>
