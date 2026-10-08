@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "@/components/ui/toast";
 import { useAccountExist } from "@/hooks/useAccountExist";
-import { getToken, SignOutButton, useUser } from "@clerk/react";
+import { getToken, SignOutButton, useClerk, useUser } from "@clerk/react";
 import {
   ChartColumnStacked,
   Info,
@@ -20,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 const OrganizationSignUpFounder = () => {
   const router = useNavigate();
   const { user } = useUser();
+  const { signOut } = useClerk();
 
   const { accountExists, setAccountExists } = useAccountExist();
 
@@ -31,6 +33,18 @@ const OrganizationSignUpFounder = () => {
         const res = await checkUserExistenceAPI(token!);
         console.log(res.data.accountExists);
         setAccountExists(res.data.accountExists);
+
+        if (res.data.accountExists === true) {
+          toast.add({
+            title: `Your account already exists in the PalmTree`,
+            description:
+              "Please login into your account. For any help please contact to PalmTree support team.",
+          });
+
+          await new Promise((resolve) => setTimeout(resolve, 4200));
+
+          await signOut({ redirectUrl: "/organization/signin" });
+        }
       } catch (error: any) {
         console.log(error.message);
       }
