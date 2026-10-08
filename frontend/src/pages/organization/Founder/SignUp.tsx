@@ -1,10 +1,12 @@
 "use client";
 
+import { checkUserExistenceAPI } from "@/api/user.api";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useUser } from "@clerk/react";
+import { useAccountExist } from "@/hooks/useAccountExist";
+import { getToken, SignOutButton, useUser } from "@clerk/react";
 import {
   ChartColumnStacked,
   Info,
@@ -12,11 +14,30 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const OrganizationSignUpFounder = () => {
   const router = useNavigate();
   const { user } = useUser();
+
+  const { accountExists, setAccountExists } = useAccountExist();
+
+  useEffect(() => {
+    const handleCheckExistence = async () => {
+      try {
+        const token = await getToken();
+
+        const res = await checkUserExistenceAPI(token!);
+        console.log(res.data.accountExists);
+        setAccountExists(res.data.accountExists);
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    };
+
+    handleCheckExistence();
+  }, [user]);
 
   return (
     <div className="flex justify-between items-center w-full lg:p-20">
@@ -28,6 +49,8 @@ const OrganizationSignUpFounder = () => {
           <h6 className="text-neutral-800 font-semibold text-lg">
             Founder Account
           </h6>
+          {/* Later remove this */}
+          <SignOutButton />
         </div>
 
         <div className="flex justify-start items-start w-full flex-col lg:gap-y-4">
@@ -67,6 +90,7 @@ const OrganizationSignUpFounder = () => {
             </h6>
             <Button
               onClick={() => router("/organization/signup/founder/contact")}
+              disabled={accountExists}
               size={"lg"}
               className="bg-blue-700 hover:bg-blue-800 cursor-pointer"
             >
